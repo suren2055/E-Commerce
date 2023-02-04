@@ -1,0 +1,16 @@
+@model CatalogItem
+
+
+<form asp-controller="Cart" asp-action="AddToCart">
+
+    <img class="esh-catalog-thumbnail" width="300" height="300" src="@Model.PictureUri" alt=""/>
+    <input class="btn btn-success @(!User.Identity.IsAuthenticated ? "is-disabled" : "")" type="submit" value="[ ADD TO CART ]"/>
+
+    <div class="esh-catalog-name">
+        <span>@Model.Name</span>
+    </div>
+    <div class="esh-catalog-price">
+        <span>@Model.Price.ToString("N2")</span>
+    </div>
+    <input type="hidden" asp-for="@Model.Id" name="id"/>
+</form>

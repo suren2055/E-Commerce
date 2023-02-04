@@ -1,0 +1,55 @@
+@model E_Commerce.WEB.Models.CatalogViewModels.IndexViewModel
+@{
+    ViewData["Title"] = "Catalog";
+}
+<section class="esh-catalog-hero">
+    <div class="container">
+        <img class="esh-catalog-title" src="~/images/main_banner_text.png" alt=""/>
+    </div>
+</section>
+
+<section class="">
+    <div class="container">
+        <form asp-action="Index" asp-controller="Catalog" method="post">
+            <div class="form-group col-md-4 d-flex justify-content-start">
+                <select asp-for="@Model.BrandFilterApplied" asp-items="@Model.Brands"  class="form-select m-2"></select>
+                <select asp-for="@Model.TypesFilterApplied" asp-items="@Model.Types" class="form-select m-2"></select>
+            </div>
+            @* <input class="esh-catalog-send" type="image" src="~/images/arrow-right.svg"/> *@
+        </form>
+    </div>
+</section>
+
+<div class="container">
+    <div class="row">
+        <br/>
+        @if (ViewBag.BasketInoperativeMsg != null)
+        {
+            <div class="alert alert-warning" role="alert">
+                &nbsp;@ViewBag.BasketInoperativeMsg
+            </div>
+        }
+    </div>
+
+    @if (Model.CatalogItems.Any())
+    {
+        <partial name="_pagination" for="PaginationInfo"/>
+
+        <div class="esh-catalog-items row">
+            @foreach (var catalogItem in Model.CatalogItems)
+            {
+                <div class="esh-catalog-item col-md-4">
+                    <partial name="_product" model="catalogItem"/>
+                </div>
+            }
+        </div>
+
+        <partial name="_pagination" for="PaginationInfo"/>
+    }
+    else
+    {
+        <div class="esh-catalog-items row">
+            THERE ARE NO RESULTS THAT MATCH YOUR SEARCH
+        </div>
+    }
+</div>
