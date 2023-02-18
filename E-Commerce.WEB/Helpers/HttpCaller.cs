@@ -13,7 +13,7 @@ public static class HttpCaller
         client = new HttpClient();
     }
 
-    public static async Task<HttpRequestOutput> SendAsync(HttpRequestInput input, short cancelTimeout = 10000)
+    public static async Task<HttpRequestOutput> SendAsync(HttpRequestInput input, short cancelTimeout = 30000)
     {
         try
         {

@@ -1,4 +1,4 @@
-using E_Commerce.WEB.Models;
+using E_Commerce.WEB.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace E_Commerce.WEB.Services;

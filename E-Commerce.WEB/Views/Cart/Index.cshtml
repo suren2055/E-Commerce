@@ -1,0 +1,21 @@
+
+@model E_Commerce.WEB.ViewModels.Basket
+@* @inject IIdentityParser<ApplicationUser> UserManager *@
+
+@{
+     ViewData["Title"] = "My Cart";
+     var headerList = new List<Header>() {
+          new Header() { Controller = "Catalog", Text = "Back to catalog" }};
+}
+
+<form method="post" id="cartForm">
+    <div class="esh-basket">
+        <partial name="_Header" model="headerList"/>
+        @await Component.InvokeAsync("CartList", new { user = new ApplicationUser
+               {
+                   Id = "1",
+                   Name = "John",
+                   LastName = "Doe"
+               } })
+    </div>
+</form>

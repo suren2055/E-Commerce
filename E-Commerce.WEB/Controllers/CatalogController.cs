@@ -1,8 +1,8 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using E_Commerce.WEB.Models;
-using E_Commerce.WEB.Models.CatalogViewModels;
-using E_Commerce.WEB.Models.Pagination;
+using E_Commerce.WEB.ViewModels;
+using E_Commerce.WEB.ViewModels.CatalogViewModels;
+using E_Commerce.WEB.ViewModels.Pagination;
 using E_Commerce.WEB.Services;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -52,9 +52,7 @@ public class CatalogController : Controller
 
         vm.PaginationInfo.Next = vm.PaginationInfo.ActualPage == vm.PaginationInfo.TotalPages - 1 ? "is-disabled" : "";
         vm.PaginationInfo.Previous = vm.PaginationInfo.ActualPage == 0 ? "is-disabled" : "";
-
         ViewBag.BasketInoperativeMsg = errorMsg;
-
         return View(vm);
     }
 

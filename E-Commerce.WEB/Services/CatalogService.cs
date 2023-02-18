@@ -1,6 +1,6 @@
 using System.Text.Json;
 using E_Commerce.WEB.Helpers;
-using E_Commerce.WEB.Models;
+using E_Commerce.WEB.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;
 
@@ -24,16 +24,16 @@ public class CatalogService : ICatalogService
 
     public async Task<Catalog> GetCatalogItems(int page, int take, int? brand, int? type)
     {
-        //var uri = API.Catalog.GetAllCatalogItems(_remoteServiceBaseUrl, page, take, brand, type);
+        
 
-        var responseString = HttpCaller.SendAsync(new HttpRequestInput
+        var responseString = await HttpCaller.SendAsync(new HttpRequestInput
         {
             Methods = HttpMethod.Get,
             Url = _remoteServiceBaseUrl
         });
 
 
-        var catalog = JsonSerializer.Deserialize<Catalog>(responseString.Result.Response,
+        var catalog = JsonSerializer.Deserialize<Catalog>(responseString.Response,
             new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
