@@ -6,7 +6,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E-Commerce.WEB", "E-Commerc
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4ECA5A0C-7277-4DB7-B5A2-E39BE2E3C8C5}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\..\..\..\Compose\docker-compose.yml = ..\..\..\..\..\Compose\docker-compose.yml
+		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
 Global

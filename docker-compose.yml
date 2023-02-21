@@ -1,0 +1,55 @@
+version: "3.9"
+services:
+  redis:
+    image: redis:alpine
+    platform: linux/arm64
+    container_name: redis
+    ports:
+      - "6379:6379"
+  db:
+    image: postgres:latest
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: e-commerce
+    volumes:
+      - db-data:/var/lib/postgresql/data
+  ecommerce.api:
+    image: ${DOCKER_REGISTRY-}ecommerceapi
+    container_name: ecommerceapi
+    build:
+      context: .
+      dockerfile: E-Commerce.API/Dockerfile
+    ports:
+      - "8067:80"
+#    volumes:
+#      - ${PWD}/app:/app
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - db
+      - redis
+  ecommerce.web:
+    image: ${DOCKER_REGISTRY-}ecommerceweb
+    container_name: ecommerceweb
+    build:
+      context: .
+      dockerfile: E-Commerce.WEB/Dockerfile
+    ports:
+      - "8068:80"
+#    volumes:
+#      - ${PWD}/app:/app
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - db
+      - redis
+
+volumes:
+  db-data:
+   
+  

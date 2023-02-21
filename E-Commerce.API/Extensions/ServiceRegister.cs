@@ -15,7 +15,7 @@ internal static class ServiceRegister
         services.Configure<AppSettings>(configuration.GetSection("Settings"));
         var connectionString = new NpgsqlConnectionStringBuilder
         {
-            Host = "localhost:5432",//Environment.GetEnvironmentVariable("DB_ADDR"),
+            Host = "postgres:5432",//Environment.GetEnvironmentVariable("DB_ADDR"),
             IntegratedSecurity = true,
             Timeout = 60,
             Database = "e-commerce",//Environment.GetEnvironmentVariable("DB_DATABASE"),
@@ -29,6 +29,7 @@ internal static class ServiceRegister
         {
             var settings = sp.GetRequiredService<IOptions<AppSettings>>().Value;
             var configuration = ConfigurationOptions.Parse(settings.RedisConnectionString, true);
+            configuration.AbortOnConnectFail = false;
             return ConnectionMultiplexer.Connect(configuration);
         });
         services.AddScoped<ICatalogItemRepository, CatalogItemRepository>();
