@@ -5,8 +5,8 @@ using Microsoft.EntityFrameworkCore;
 namespace E_Commerce.API.Repositories;
 public class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : class
 {
-    private readonly DbSet<TEntity> _dbSet;
-    private readonly EFDBContext _context;
+    protected readonly DbSet<TEntity> _dbSet;
+    protected readonly EFDBContext _context;
 
     protected BaseRepository(EFDBContext context)
     {

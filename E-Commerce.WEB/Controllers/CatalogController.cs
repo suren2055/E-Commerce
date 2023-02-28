@@ -4,10 +4,12 @@ using E_Commerce.WEB.ViewModels;
 using E_Commerce.WEB.ViewModels.CatalogViewModels;
 using E_Commerce.WEB.ViewModels.Pagination;
 using E_Commerce.WEB.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace E_Commerce.WEB.Controllers;
 
+[Authorize]
 public class CatalogController : Controller
 {
     private readonly ILogger<CatalogController> _logger;
@@ -19,6 +21,7 @@ public class CatalogController : Controller
         _catalogService = catalogService;
     }
 
+    
     public async Task<IActionResult> Index(int? brandFilterApplied, int? typesFilterApplied, int? page,
         [FromQuery] string errorMsg)
     {

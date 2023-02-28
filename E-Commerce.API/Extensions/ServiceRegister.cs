@@ -33,5 +33,8 @@ internal static class ServiceRegister
             return ConnectionMultiplexer.Connect(configuration);
         });
         services.AddScoped<ICatalogItemRepository, CatalogItemRepository>();
+        services.AddScoped<IOrderRepository, OrderRepository>();
+        
     }
+   
 }

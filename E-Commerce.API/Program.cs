@@ -1,7 +1,9 @@
+using System.Text.Json.Serialization;
 using E_Commerce.API.Concrete;
 using E_Commerce.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Services.RegisterServices(builder.Configuration);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -22,9 +24,6 @@ using(var scope = app.Services.CreateScope())
 app.UseSwagger();
 app.UseSwaggerUI();
 //app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();

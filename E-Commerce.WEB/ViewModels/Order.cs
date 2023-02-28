@@ -51,8 +51,7 @@ public class Order
 
     public string Buyer { get; set; }
 
-    public List<SelectListItem> ActionCodeSelectList =>
-        GetActionCodesByCurrentState();
+    public IEnumerable<SelectListItem> ActionCodeSelectList => GetActionCodesByCurrentState();
 
     public List<OrderItem> OrderItems { get; set; }
 
@@ -72,7 +71,7 @@ public class Order
         CardExpiration = new DateTime(int.Parse(year), int.Parse(month), 1);
     }
 
-    private List<SelectListItem> GetActionCodesByCurrentState()
+    private IEnumerable<SelectListItem> GetActionCodesByCurrentState()
     {
         var actions = new List<OrderProcessAction>();
         switch (Status?.ToLower())

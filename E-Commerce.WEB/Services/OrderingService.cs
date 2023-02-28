@@ -1,4 +1,5 @@
 using System.Text.Json;
+using E_Commerce.WEB.Helpers;
 using E_Commerce.WEB.ViewModels;
 using E_Commerce.WEB.Services.Models.DTO;
 using Microsoft.Extensions.Options;
@@ -7,51 +8,50 @@ namespace E_Commerce.WEB.Services;
 
 public class OrderingService : IOrderingService
 {
-   
+    
     private readonly string _remoteServiceBaseUrl;
     private readonly IOptions<AppSettings> _settings;
-    private readonly ILogger<OrderingService> _logger;
 
 
-    public OrderingService(IOptions<AppSettings> settings, ILogger<OrderingService> logger)
+    public OrderingService(IOptions<AppSettings> settings)
     {
         
         _settings = settings;
-        _logger = logger;
-        //_remoteServiceBaseUrl = $"{settings.Value.PurchaseUrl}/o/api/v1/orders";
+        _remoteServiceBaseUrl = $"{_settings.Value.RecourceUrl}/api/Orders/Get";
     }
 
     public async Task<Order> GetOrder(ApplicationUser user, string id)
     {
-        // var uri = API.Order.GetOrder(_remoteServiceBaseUrl, id);
-        //
-        // var responseString = await _httpClient.GetStringAsync(uri);
-        //
-        // var response = JsonSerializer.Deserialize<Order>(responseString, new JsonSerializerOptions
-        // {
-        //     PropertyNameCaseInsensitive = true
-        // });
-        //
-        // return response;
-        return null;
+        var responseString = await HttpCaller.SendAsync(new HttpRequestInput
+        {
+            Methods = HttpMethod.Get,
+            Url = _remoteServiceBaseUrl + $"?id={id}"
+        });
+        var response = JsonSerializer.Deserialize<Order>(responseString.Response,
+            new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            });
+
+        return response;
     }
 
-    public async Task<List<Order>> GetMyOrders(ApplicationUser user)
+    public async Task<List<Order>> GetMyOrders(/*ApplicationUser user*/)
     {
-        // var uri = API.Order.GetAllMyOrders(_remoteServiceBaseUrl);
-        //
-        // var responseString = await _httpClient.GetStringAsync(uri);
-        //
-        // var response = JsonSerializer.Deserialize<List<Order>>(responseString, new JsonSerializerOptions
-        // {
-        //     PropertyNameCaseInsensitive = true
-        // });
-        //
-        // return response;
-        return null;
+        var responseString = await HttpCaller.SendAsync(new HttpRequestInput
+        {
+            Methods = HttpMethod.Get,
+            Url = _remoteServiceBaseUrl
+        });
+
+        var response = JsonSerializer.Deserialize<List<Order>>(responseString.Response,
+            new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            });
+
+        return response;
     }
-
-
 
     public async Task CancelOrder(string orderId)
     {
@@ -61,7 +61,8 @@ public class OrderingService : IOrderingService
         // };
         //
         // var uri = API.Order.CancelOrder(_remoteServiceBaseUrl);
-        // var orderContent = new StringContent(JsonSerializer.Serialize(order), System.Text.Encoding.UTF8, "application/json");
+        // var orderContent =
+        //     new StringContent(JsonSerializer.Serialize(order), System.Text.Encoding.UTF8, "application/json");
         //
         // var response = await _httpClient.PutAsync(uri, orderContent);
         //
@@ -71,7 +72,6 @@ public class OrderingService : IOrderingService
         // }
         //
         // response.EnsureSuccessStatusCode();
-       
     }
 
     public async Task ShipOrder(string orderId)
@@ -82,7 +82,8 @@ public class OrderingService : IOrderingService
         // };
         //
         // var uri = API.Order.ShipOrder(_remoteServiceBaseUrl);
-        // var orderContent = new StringContent(JsonSerializer.Serialize(order), System.Text.Encoding.UTF8, "application/json");
+        // var orderContent =
+        //     new StringContent(JsonSerializer.Serialize(order), System.Text.Encoding.UTF8, "application/json");
         //
         // var response = await _httpClient.PutAsync(uri, orderContent);
         //
@@ -92,7 +93,6 @@ public class OrderingService : IOrderingService
         // }
         //
         // response.EnsureSuccessStatusCode();
-       
     }
 
     public void OverrideUserInfoIntoOrder(Order original, Order destination)
@@ -119,7 +119,8 @@ public class OrderingService : IOrderingService
 
         order.CardNumber = user.CardNumber;
         order.CardHolderName = user.CardHolderName;
-        order.CardExpiration = new DateTime(int.Parse("20" + user.Expiration.Split('/')[1]), int.Parse(user.Expiration.Split('/')[0]), 1);
+        order.CardExpiration = new DateTime(int.Parse("20" + user.Expiration.Split('/')[1]),
+            int.Parse(user.Expiration.Split('/')[0]), 1);
         order.CardSecurityNumber = user.SecurityNumber;
 
         return order;
