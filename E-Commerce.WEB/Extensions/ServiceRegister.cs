@@ -29,21 +29,29 @@ public static class ServiceRegister
             })
             .AddCookie(options =>
             {
-                options.Cookie.Name = "ecommerce";
-                options.LoginPath = "/account/login";
-                // options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-                // options.Cookie.HttpOnly = true;
-                // options.Cookie.SameSite = SameSiteMode.Strict;
+                options.Cookie.Name = "ecommerce_";
+                options.LoginPath = "/signin-oidc";
+                
+                options.Cookie.HttpOnly = true;
+                options.Cookie.SameSite = SameSiteMode.None; 
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                
                 // options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
                 // options.SlidingExpiration = true;
             })
             .AddOpenIdConnect(options =>
             {
+                
+                options.NonceCookie.SecurePolicy = CookieSecurePolicy.Always; 
+                options.CorrelationCookie.SecurePolicy = CookieSecurePolicy.Always;
+                options.CorrelationCookie.HttpOnly = true;
+                options.NonceCookie.HttpOnly = true;
+                
                 options.RequireHttpsMetadata = false;
                 options.Authority = "http://host.docker.internal:8080/realms/ecommerce";
                 options.ClientId = "ecommerce";
-                options.ClientSecret = "X0aoSD2UkRso30HsJAx3SN3wBCUjL9z7";
-                options.CallbackPath = "/account/login";
+                options.ClientSecret = "tsFTGW3WDRZOCaSFJbPoCuQvOEWvdHU6";
+                options.CallbackPath = "/signin-oidc";
                 options.SignedOutCallbackPath = "/signout-callback-oidc";
                 options.RemoteSignOutPath = "/signout-oidc";
                 options.Scope.Add(OpenIdConnectScope.OpenId);

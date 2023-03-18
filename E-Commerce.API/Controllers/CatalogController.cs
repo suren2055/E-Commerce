@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace E_Commerce.API.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("[controller]")]
 public class CatalogController : ControllerBase
 {
     private readonly ILogger<CatalogController> _logger;
@@ -20,6 +20,7 @@ public class CatalogController : ControllerBase
     [HttpGet("Get")]
     public async Task<IActionResult> Get()
     {
+        
         var data = await _catalogItemRepository.GetAsync();
         var catalog = new CatalogDTO
         {

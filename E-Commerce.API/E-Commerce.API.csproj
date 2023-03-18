@@ -9,18 +9,34 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="MongoDB.Driver" Version="2.19.0" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+        <PackageReference Include="Serilog.Sinks.MongoDB" Version="5.3.1" />
         <PackageReference Include="StackExchange.Redis" Version="2.6.90" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.1" />
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.1" />
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.0" />
+        <PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />
     </ItemGroup>
 
     <ItemGroup>
       <Content Include="..\.dockerignore">
         <Link>.dockerignore</Link>
       </Content>
+      <Content Remove="logs\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="logs\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="logs\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="logs\**" />
     </ItemGroup>
 
 </Project>

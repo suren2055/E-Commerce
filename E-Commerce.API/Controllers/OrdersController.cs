@@ -9,7 +9,7 @@ using Order = StackExchange.Redis.Order;
 
 namespace E_Commerce.API.Controllers;
 
-[Route("api/[controller]")]
+[Route("[controller]")]
 [ApiController]
 public class OrdersController : ControllerBase
 {

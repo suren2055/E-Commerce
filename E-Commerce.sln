@@ -7,6 +7,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4ECA5A0C-7277-4DB7-B5A2-E39BE2E3C8C5}"
 	ProjectSection(SolutionItems) = preProject
 		docker-compose.yml = docker-compose.yml
+		nginx.conf = nginx.conf
 	EndProjectSection
 EndProject
 Global

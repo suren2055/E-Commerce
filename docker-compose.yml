@@ -1,11 +1,25 @@
 version: "3.9"
 services:
+  
+  nginx:
+    image: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - api
+      - web
+#    networks:
+#      - ecommerce_network
   redis:
     image: redis:alpine
     platform: linux/arm64
     container_name: redis
     ports:
       - "6379:6379"
+#    networks:
+#      - ecommerce_network
   keycloak:
     image: quay.io/keycloak/keycloak:20.0.5
     container_name: keycloak
@@ -17,7 +31,9 @@ services:
       KEYCLOAK_ADMIN_PASSWORD: admin
     command:
       - start-dev
-      #KEYCLOAK_IMPORT: /tmp/realm-export.json
+#    networks:
+#      - ecommerce_network
+      
   db:
     image: postgres:latest
     container_name: postgres
@@ -30,39 +46,64 @@ services:
       POSTGRES_DB: e-commerce
     volumes:
       - db-data:/var/lib/postgresql/data
-  ecommerce.api:
+#    networks:
+#      - ecommerce_network
+  mongo:
+    image: mongo
+    container_name: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - "27017:27017"
+#    networks:
+#      - ecommerce_network
+        
+  api:
     image: ${DOCKER_REGISTRY-}ecommerceapi
-    container_name: ecommerceapi
+    #container_name: ecommerceapi
     build:
       context: .
       dockerfile: E-Commerce.API/Dockerfile
     ports:
-      - "8067:80"
-#    volumes:
-#      - ${PWD}/app:/app
+      - "8023-8025:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - MNG_ADDR=localhost
+      - MNG_PORT=27017
+      - MNG_DATABASE=LogsLB
+      - MNG_HRMS_Vacation_USER=root
+      - MNG_PASSWORD=example
     depends_on:
       - db
       - redis
       - keycloak
-  ecommerce.web:
+      - mongo
+#    networks:
+#      - ecommerce_network
+    
+  web:
     image: ${DOCKER_REGISTRY-}ecommerceweb
-    container_name: ecommerceweb
+    #container_name: ecommerceweb
     build:
       context: .
       dockerfile: E-Commerce.WEB/Dockerfile
     ports:
-      - "8068:80"
-#    volumes:
-#      - ${PWD}/app:/app
+      - "8068-8070:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     depends_on:
       - db
       - redis
+#    networks:
+#      - ecommerce_network
 
 volumes:
   db-data:
+    
+    
+#networks:
+#  ecommerce_network:    
    
   

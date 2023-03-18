@@ -32,6 +32,23 @@ internal static class ServiceRegister
             configuration.AbortOnConnectFail = false;
             return ConnectionMultiplexer.Connect(configuration);
         });
+        // var address = Environment.GetEnvironmentVariable("MNG_ADDR");
+        // var port = Environment.GetEnvironmentVariable("MNG_PORT");
+        // var dbName = Environment.GetEnvironmentVariable("MNG_DB");
+        // var user = Environment.GetEnvironmentVariable("MNG_USER");
+        // var pwd = Environment.GetEnvironmentVariable("MNG_PASSWORD");
+        //
+        //
+        // services.Configure<MongoDatabaseSettings>(settings =>
+        // {
+        //     settings.ConnectionString = $"mongodb://{user}:{pwd}@{address}:{port}";
+        //     settings.DatabaseName = dbName;
+        //     settings.User = user;
+        //     settings.Password = pwd;
+        // });
+        // services.AddSingleton<MongoDatabaseSettings>(serviceProvider =>
+        //     serviceProvider.GetRequiredService<IOptions<MongoDatabaseSettings>>().Value);
+        // services.AddScoped(typeof(Services.IMongoService<>), typeof(Services.MongoService<>));
         services.AddScoped<ICatalogItemRepository, CatalogItemRepository>();
         services.AddScoped<IOrderRepository, OrderRepository>();
         

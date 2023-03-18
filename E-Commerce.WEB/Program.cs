@@ -30,6 +30,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Catalog}/{action=Index}/{id?}");
