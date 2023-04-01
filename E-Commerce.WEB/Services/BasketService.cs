@@ -17,7 +17,7 @@ public class BasketService : IBasketService
     {
         _settings = settings;
         _logger = logger;
-        _basketByPassUrl = $"{_settings.Value.RecourceUrl}/api/Basket";
+        _basketByPassUrl = $"{_settings.Value.RecourceUrl}/Basket";
     }
 
     public async Task<Basket> GetBasket(ApplicationUser user)

@@ -19,7 +19,7 @@ public class CatalogService : ICatalogService
         _settings = settings;
         _logger = logger;
        
-        _remoteServiceBaseUrl = $"{_settings.Value.RecourceUrl}/api/Catalog/Get";
+        _remoteServiceBaseUrl = $"{_settings.Value.RecourceUrl}/Catalog/Get";
     }
 
     public async Task<Catalog> GetCatalogItems(int page, int take, int? brand, int? type)

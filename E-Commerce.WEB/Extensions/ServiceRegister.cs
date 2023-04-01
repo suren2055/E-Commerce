@@ -29,15 +29,12 @@ public static class ServiceRegister
             })
             .AddCookie(options =>
             {
-                options.Cookie.Name = "ecommerce_";
+                options.Cookie.Name = "cookie_app_";
                 options.LoginPath = "/signin-oidc";
                 
                 options.Cookie.HttpOnly = true;
                 options.Cookie.SameSite = SameSiteMode.None; 
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-                
-                // options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
-                // options.SlidingExpiration = true;
             })
             .AddOpenIdConnect(options =>
             {
@@ -48,9 +45,9 @@ public static class ServiceRegister
                 options.NonceCookie.HttpOnly = true;
                 
                 options.RequireHttpsMetadata = false;
-                options.Authority = "http://host.docker.internal:8080/realms/ecommerce";
+                options.Authority = "http://host.docker.internal:8080/auth/realms/ecommerce";
                 options.ClientId = "ecommerce";
-                options.ClientSecret = "tsFTGW3WDRZOCaSFJbPoCuQvOEWvdHU6";
+                options.ClientSecret = "epuoyQ2haRRD795ZPRYSB4d6OY3lPGRI";
                 options.CallbackPath = "/signin-oidc";
                 options.SignedOutCallbackPath = "/signout-callback-oidc";
                 options.RemoteSignOutPath = "/signout-oidc";
@@ -65,14 +62,14 @@ public static class ServiceRegister
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer = false,
-                    ValidIssuer = "http://host.docker.internal:8080/realms/ecommerce",
+                    ValidIssuer = "http://host.docker.internal:8080/auth/realms/ecommerce",
                     ValidateAudience = false,
                     ValidAudience = "ecommerce",
                     ClockSkew = TimeSpan.Zero,
                     ValidateLifetime = false,
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey =
-                        new SymmetricSecurityKey(Encoding.ASCII.GetBytes("X0aoSD2UkRso30HsJAx3SN3wBCUjL9z7"))
+                        new SymmetricSecurityKey(Encoding.ASCII.GetBytes("epuoyQ2haRRD795ZPRYSB4d6OY3lPGRI"))
                 };
             });
     }

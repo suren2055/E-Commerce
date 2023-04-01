@@ -17,7 +17,7 @@ public class OrderingService : IOrderingService
     {
         
         _settings = settings;
-        _remoteServiceBaseUrl = $"{_settings.Value.RecourceUrl}/api/Orders/Get";
+        _remoteServiceBaseUrl = $"{_settings.Value.RecourceUrl}/Orders/Get";
     }
 
     public async Task<Order> GetOrder(ApplicationUser user, string id)

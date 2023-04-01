@@ -2,6 +2,7 @@ version: "3.9"
 services:
   
   nginx:
+    container_name: nginx
     image: nginx
     ports:
       - "80:80"
@@ -10,30 +11,39 @@ services:
     depends_on:
       - api
       - web
-#    networks:
-#      - ecommerce_network
+
   redis:
     image: redis:alpine
     platform: linux/arm64
     container_name: redis
     ports:
       - "6379:6379"
-#    networks:
-#      - ecommerce_network
+
   keycloak:
-    image: quay.io/keycloak/keycloak:20.0.5
+    image: quay.io/keycloak/keycloak:legacy
+    platform: linux/arm64
     container_name: keycloak
+    depends_on:
+      - db
     ports:
       - "8080:8080"
+    
     environment:
-      #DB_VENDOR: h2
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
-    command:
-      - start-dev
-#    networks:
-#      - ecommerce_network
-      
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres:5432
+      DB_DATABASE: keycloak
+      DB_USER: postgres
+      DB_SCHEMA: public
+      DB_PASSWORD: postgres
+    command: "-Dkeycloak.profile.feature.upload_scripts=enabled"
+    
+    
+   
+   
   db:
     image: postgres:latest
     container_name: postgres
@@ -43,11 +53,10 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: e-commerce
+      POSTGRES_DB: keycloak,e-commerce
     volumes:
-      - db-data:/var/lib/postgresql/data
-#    networks:
-#      - ecommerce_network
+      - ./db-data:/var/lib/postgresql/data
+
   mongo:
     image: mongo
     container_name: mongo
@@ -57,17 +66,17 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: example
     ports:
       - "27017:27017"
-#    networks:
-#      - ecommerce_network
+
+        
         
   api:
     image: ${DOCKER_REGISTRY-}ecommerceapi
-    #container_name: ecommerceapi
+    container_name: ecommerceapi
     build:
       context: .
       dockerfile: E-Commerce.API/Dockerfile
     ports:
-      - "8023-8025:80"
+      - "8023:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - MNG_ADDR=localhost
@@ -78,32 +87,23 @@ services:
     depends_on:
       - db
       - redis
-      - keycloak
       - mongo
-#    networks:
-#      - ecommerce_network
+
+    
     
   web:
     image: ${DOCKER_REGISTRY-}ecommerceweb
-    #container_name: ecommerceweb
+    container_name: ecommerceweb
     build:
       context: .
       dockerfile: E-Commerce.WEB/Dockerfile
     ports:
-      - "8068-8070:80"
+      - "8068:80"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     depends_on:
-      - db
+      - keycloak
       - redis
-#    networks:
-#      - ecommerce_network
-
-volumes:
-  db-data:
     
-    
-#networks:
-#  ecommerce_network:    
    
   
