@@ -2,7 +2,7 @@ namespace E_Commerce.API.Models.DTO;
 
 public class CustomerBasketDTO
 {
-    public string BuyerId { get; set; }
+    public Guid BuyerId { get; set; }
 
     public List<BasketItemDTO> Items { get; set; } = new();
 
@@ -11,7 +11,7 @@ public class CustomerBasketDTO
 
     }
 
-    public CustomerBasketDTO(string customerId)
+    public CustomerBasketDTO(Guid customerId)
     {
         BuyerId = customerId;
     }

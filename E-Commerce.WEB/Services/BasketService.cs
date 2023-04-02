@@ -25,7 +25,7 @@ public class BasketService : IBasketService
         var responseString = await HttpCaller.SendAsync(new HttpRequestInput
         {
             Methods = HttpMethod.Get,
-            Url = _basketByPassUrl + "/5"
+            Url = _basketByPassUrl + "/8bf8d740-b087-4171-9fca-efdae425a034"
         });
         var basket = JsonSerializer.Deserialize<Basket>(responseString.Response,
             new JsonSerializerOptions

@@ -24,7 +24,7 @@ internal static class ServiceRegister
         };
         services.AddDbContext<EFDBContext>(options =>
             options.UseNpgsql(connectionString.ToString()));
-        services.AddScoped<IBasketRepository, RedisBasketRepository>();
+        services.AddScoped<IBasketRepository, BasketRepository>();
         services.AddSingleton<ConnectionMultiplexer>(sp =>
         {
             var settings = sp.GetRequiredService<IOptions<AppSettings>>().Value;

@@ -18,9 +18,9 @@ public class BasketController : ControllerBase
         _repository = repository;
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("{id:guid}")]
     [ProducesResponseType(typeof(CustomerBasketDTO), (int) HttpStatusCode.OK)]
-    public async Task<ActionResult<CustomerBasketDTO>> GetBasketByIdAsync(string id)
+    public async Task<ActionResult<CustomerBasketDTO>> GetBasketByIdAsync(Guid id)
     {
         var basket = await _repository.GetBasketAsync(id);
 
@@ -36,7 +36,7 @@ public class BasketController : ControllerBase
     
     [HttpDelete("{id}")]
     [ProducesResponseType(typeof(void), (int) HttpStatusCode.OK)]
-    public async Task DeleteBasketByIdAsync(string id)
+    public async Task DeleteBasketByIdAsync(Guid id)
     {
         await _repository.DeleteBasketAsync(id);
     }
