@@ -5,9 +5,9 @@ namespace E_Commerce.API.Concrete;
 
 public class EFDBContext : DbContext
 {
-    public DbSet<Order> Orders { get; set; }
+  
     public DbSet<CatalogItem> CatalogItems { get; set; }
-    public DbSet<OrderItem> OrderItems { get; set; }
+   
     public DbSet<Basket> Baskets { get; set; }
     public DbSet<BasketItem> BasketItems { get; set; }
 
@@ -22,16 +22,7 @@ public class EFDBContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Order>()
-            .HasMany(o => o.OrderItems)
-            .WithOne(i => i.Order)
-            .HasForeignKey(i => i.OrderId);
-
-        modelBuilder.Entity<Order>()
-            .HasMany(o => o.OrderItems)
-            .WithOne(i => i.Order)
-            .IsRequired()
-            .OnDelete(DeleteBehavior.Cascade);
+      
         
         modelBuilder.Entity<Basket>()
             .HasMany(o => o.BasketItems)

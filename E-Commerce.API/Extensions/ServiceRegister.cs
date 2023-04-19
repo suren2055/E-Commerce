@@ -15,12 +15,12 @@ internal static class ServiceRegister
         services.Configure<AppSettings>(configuration.GetSection("Settings"));
         var connectionString = new NpgsqlConnectionStringBuilder
         {
-            Host = "postgres:5432",//Environment.GetEnvironmentVariable("DB_ADDR"),
+            Host = "postgres:5432",  //Environment.GetEnvironmentVariable("DB_ADDR"),
             IntegratedSecurity = true,
             Timeout = 60,
-            Database = "e-commerce",//Environment.GetEnvironmentVariable("DB_DATABASE"),
-            Username = "postgres",//Environment.GetEnvironmentVariable("DB_USER"),
-            Password = "postgres"//Environment.GetEnvironmentVariable("DB_PASSWORD")
+            Database = "e-commerce", //Environment.GetEnvironmentVariable("DB_DATABASE"),
+            Username = "postgres",   //Environment.GetEnvironmentVariable("DB_USER"),
+            Password = "postgres"    //Environment.GetEnvironmentVariable("DB_PASSWORD")
         };
         services.AddDbContext<EFDBContext>(options =>
             options.UseNpgsql(connectionString.ToString()));
@@ -50,7 +50,7 @@ internal static class ServiceRegister
         //     serviceProvider.GetRequiredService<IOptions<MongoDatabaseSettings>>().Value);
         // services.AddScoped(typeof(Services.IMongoService<>), typeof(Services.MongoService<>));
         services.AddScoped<ICatalogItemRepository, CatalogItemRepository>();
-        services.AddScoped<IOrderRepository, OrderRepository>();
+      
         
     }
    

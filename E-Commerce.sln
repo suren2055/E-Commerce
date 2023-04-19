@@ -10,6 +10,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4ECA5A0C-727
 		nginx.conf = nginx.conf
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Microservices", "Microservices", "{AD694187-7A12-4D93-AC9B-D22164862206}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E-Commerce.Ordering", "E-Commerce.Ordering\E-Commerce.Ordering.csproj", "{366CF39A-850F-4AF3-A9E6-47146D17FDCE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E-Commerce.Payment", "E-Commerce.Payment\E-Commerce.Payment.csproj", "{BFB38C63-6138-48F1-A626-270EC8772D05}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +30,17 @@ Global
 		{B6472776-FA0A-4E6A-B1A0-69B52AC4A34A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6472776-FA0A-4E6A-B1A0-69B52AC4A34A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6472776-FA0A-4E6A-B1A0-69B52AC4A34A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{366CF39A-850F-4AF3-A9E6-47146D17FDCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{366CF39A-850F-4AF3-A9E6-47146D17FDCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{366CF39A-850F-4AF3-A9E6-47146D17FDCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{366CF39A-850F-4AF3-A9E6-47146D17FDCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFB38C63-6138-48F1-A626-270EC8772D05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFB38C63-6138-48F1-A626-270EC8772D05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFB38C63-6138-48F1-A626-270EC8772D05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFB38C63-6138-48F1-A626-270EC8772D05}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{366CF39A-850F-4AF3-A9E6-47146D17FDCE} = {AD694187-7A12-4D93-AC9B-D22164862206}
+		{BFB38C63-6138-48F1-A626-270EC8772D05} = {AD694187-7A12-4D93-AC9B-D22164862206}
 	EndGlobalSection
 EndGlobal
