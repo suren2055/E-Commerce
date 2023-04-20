@@ -20,9 +20,9 @@ public static class ServiceRegister
             Password = "postgres"
         };
         services.AddDbContext<EFDBContext>(options =>
-            options.UseNpgsql(connectionString.ToString()));
+            options.UseNpgsql(connectionString.ToString()),ServiceLifetime.Singleton);
 
-        services.AddScoped<IOrderRepository, OrderRepository>();
+        services.AddTransient<IOrderRepository, OrderRepository>();
         services.AddHostedService<PaymentWorker>();
     }
 }

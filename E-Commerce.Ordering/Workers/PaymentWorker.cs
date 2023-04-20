@@ -8,7 +8,7 @@ namespace E_Commerce.Ordering.Workers;
 
 public class PaymentWorker : BackgroundService
 {
-    private const string topic = "ordering-topic";
+    private const string topic = "payment-topic";
     private const string groupId = "payment-service";
     private const string bootstrapServers = "broker:29092";
     private readonly IOrderRepository _orderRepository;

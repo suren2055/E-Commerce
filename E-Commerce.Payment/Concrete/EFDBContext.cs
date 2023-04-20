@@ -4,7 +4,7 @@ namespace E_Commerce.Payment.Concrete;
 
 public class EFDBContext : DbContext
 {
-    public DbSet<Entities.Payment> Orders { get; set; }
+    public DbSet<Entities.Payment> Payments { get; set; }
 
     
     
